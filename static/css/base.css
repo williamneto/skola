@@ -120,9 +120,20 @@
 	}
 	
 	.related {
-		display: inline-block;
-		width: 40%;
+		display: inline-flex;
+		width: 30%;
+		overflow: clip;
+		text-overflow: ellipsis;
+		text-transform: full-width;
+		padding: 12px;
+		border: 3px solid;
+		margin: 10px;
+		border-radius: 7px;
 	}
+	.related:hover{
+	
+	}
+	
 /* Box Model */
 
 	*, *:before, *:after {
@@ -2857,6 +2868,7 @@
 			text-align: justify;
 			overflow: clip;
   			text-overflow:    ellipsis;
+  			border: 2px solid white;
 		}
 
 			.tiles article .image {

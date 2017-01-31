@@ -8,7 +8,7 @@ from django.http import JsonResponse
 
 from models import Sala, Debate
 
-from google import google
+from google import google, images
 
 class IndexView(TemplateView):
 	template_name = "index.html"
@@ -125,7 +125,7 @@ class SalaView(TemplateView):
 					objs.append(obj)
 				json_o.append({'tema': t, 'pesq': objs})
 			ctx['temas_pesq'] = json_o
-
+			
 			d = Debate.objects.all().filter(sala=ctx['sala'])[0]
 
 			conts = json.loads(d.conts)

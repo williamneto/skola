@@ -62,15 +62,17 @@
 		  					<button type="button" class="special btnApv" value="{{ forloop.counter }}" data-toggle="tooltip" data-placement="bottom" title="Aprovar"><i class="fa fa-check" aria-hidden="true"></i></button>
 		  					<button type="button" class="special btnRep" value="{{ forloop.counter }}" data-toggle="tooltip" data-placement="bottom" title="Reprovar"><i class="fa fa-times" aria-hidden="true"></i></button>
 				</div>
+				<br>
 				<div class="row modal-images">
 					<div>
+						<h2>Relacionado a {{ c.tema }}</h2>
 					{% for p in temas_pesq %}
 						{% if p.tema == c.tema %}
 							{% for item in p.pesq %}
 								<div class="related">
-									<header class="major">
-										<h2>{{ item.nome }}</h2>
-									</header>
+									<label>
+										<a href="{{ item.link }}" target="_blank">{{ item.nome }}</a>
+									</label>
 								</div>
 							{% endfor %}
 						{% endif %}
