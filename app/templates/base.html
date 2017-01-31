@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css" type="text/css">
+        <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" href="/static/css/base.css" type="text/css">
+        {% block css %}
+        {% endblock %}
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    	{% block js %}
+    	{% endblock %}
+
+        <title>Skola {% block title %}{% endblock %}</title>
+    </head> 
+    <body>
+    <div id="wrapper"> 
+    <header id="header" class="alt">
+                        <a href="/" class="logo"><strong>Skola</strong> <span>levar a todos</span></a>
+                        <nav>
+                            <a href="#menu">Menu</a>
+                        </nav>
+                    </header>         
+        {% block content %}
+        {% endblock %} 
+                    <!--<footer id="footer">
+                        <div class="inner">
+                            <ul class="icons">
+                                <li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+                                <li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+                                <li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+                            </ul>
+                            <ul class="copyright">
+                                <li>Skola: </li><li>Educar para todos</li>
+                            </ul>
+                        </div>
+                    </footer>-->
+    </div>  
+
+    </body>
+</html>

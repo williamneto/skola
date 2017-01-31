@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}- Inicio{% endblock %}
+
+{% block js %}
+<script type="text/javascript" src="/static/js/index.js"></script>
+{% endblock %}
+
+{% block content %}
+<section id="banner" class="major">
+	<div class="inner">
+		<header class="major">
+			<h1>Bem vindo a <strong class="skola">Skola</strong></h1>
+		</header>
+		<div class="content">
+			<p>Uma plataforma web de debate e formulação coletiva.<br />
+			para unir pessoas e suas ideias.</p>
+			<ul class="actions">
+				<li><a href="#go" id="goto" class="button next scrolly">Começar</a><li>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<section>
+<div class="row" style="padding: 70px;">
+<div class="col-sm-6" id="go">
+	<div class="inner">
+		<div class="content">
+			<header class="major">	
+				<h2>Criar sala</h2>
+			</header>
+			<form action="" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{% if error %}
+						<div class="alert alert-danger">
+						    <strong>{{ error|escape }}</strong>
+						 </div>
+						{% endif %}	
+						<label style="text-align: justify">O Skola é  um ambiente de sala de debate online para trocar opiniões e ideias coletivamente. Foi feito para reunir pessoas com diferentes pontos de vista e ver o que acontece.</label>
+						<label style="text-align: justify">Chame os debatedores, defina quais serão os temas - vale treta -, adicione alguns videos geradores para colocar lenha na fogueira e pronto. <strong class="skola">COMECE JÁ!</strong> </label>
+
+						<div id="etp1">
+							<h6>Primeiro iformações referentes a você e quem participará do debate</h6>
+							<div class="form-group">
+						    		<input type="text" class="" id="id_dono" name="dono" placeholder="Seu nome" value="">
+						 	</div>
+						 	<div class="form-group">
+						    		<input type="text" class="" id="id_membros" name="membros" placeholder="Membros" value="">
+						    		<h6>Nome e sobrenome, separados por virgula</h6>
+						 	</div>
+						 	<input type="button" class="btn-lg btn-df" id="btnFor2" value="Próximo">
+					 	</div>
+
+					 	<div id="etp2">
+					 		<h6>Agora informações referentes a sala</h6>
+						 	<div class="form-group">
+						    		<input type="text" class="" id="id_nome" name="nome" placeholder="Nome da sala">
+						 	</div>	
+						 	<div class="form-group">
+						 			<input type="text"  class="" id="id_temas" name="temas" placeholder="Temas em debate">
+						    		<h6>Separados por virgula</h6>
+						 	</div>
+						 	<input type="button" class="btn-lg btn-df" id="btnBack2" value="Voltar">
+						 	<input type="button" class="btn-lg btn-df" id="btnFor3" value="Próximo">
+					 	</div>
+
+					 	<div id="etp3">
+					 		<h6>Por fim, adicione conteúdos para fomentar o debate</h6>
+						 	<div class="form-group">
+						 			<input type="text" class="" id="id_video" name="video" placeholder="Videos fonte">
+						    		<h6>Links separados por virgula</h6>
+						 	</div>	
+						 	<input type="button" class="btn-lg btn-df" id="btnBack3" value="Voltar">
+						 	<input type="submit" class="btn-lg btn-df" value="Criar sala">
+					 	</div>					
+			</form>
+		</div>
+	</div>
+</div>
+<div class="col-sm-6">
+	<div class="inner">
+		<div class="content">
+			<header class="major">	
+				<h2>Acessar sala</h2>
+			</header>
+			<form action="" method="post" enctype="multipart/form-data">
+						{% csrf_token %}
+						{% if error_a %}
+						<div class="alert alert-danger">
+						    <strong>{{ error_a|escape }}</strong>
+						 </div>
+						{% endif %}	
+
+						<label>Preencha as seguintes informações para acessar uma sala de debate <strong class="skola">ENTRE JÁ!</strong></label>
+						<div class="form-group">
+					    		<input type="text" class="" id="id_membro" name="membro" value="" placeholder="Seu nome">
+					 	</div>	
+					 	<div class="form-group">
+					    		<input type="text" class="" id="id_sala" name="sala" placeholder="Id da sala ex: #6782" value="">
+					 	</div>
+
+					 	<input type="submit" class="btn-lg btn-df" value="Acessar sala">					
+			</form>
+		</div>
+	</div>
+</div>
+</section>
+
+{% endblock %}

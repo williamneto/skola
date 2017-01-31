@@ -1,0 +1,104 @@
+<header class="major">
+			<h2>O que falaram sobre</h2>
+		</header>
+		<div class="content">
+				<p style="font-family: inherit; font-style: inherit; font-weight: 600; font-size: 0.7em; line-height: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; letter-spacing: 0.25em; text-transform: uppercase;">
+					Aqui você acompanha todas as contribuições e pode ver as diferentes opiniões sobre o debate e seus temas. Clicando nos temas abaixo você passa a ver apenas contribuições relacionadas ao tema clicado.
+				</p>
+			</div>
+	<div>
+		<ul id="tems-c">
+			<li class="tems-c">Todos</li>
+			{% for t in temas %}
+			<li class="tems-c">{{ t }}</li>	
+			{% endfor %}
+		</ul>
+	</div>
+	<!--<table class="table">
+		<thead>
+
+			
+		</thead>
+		<tbody>
+			{% for t in temas %}
+			<tr>
+				<th>{{ t }}</th>
+				{% for c in conts %}
+
+				{% if c.tema == t %}
+				<th>{{ c.cont }}</th>
+				{% endif %}
+
+				{% endfor %}
+			</tr>
+			{% endfor %}
+
+			
+		</tbody>
+	</table>-->
+	<div class="tiles" id="cards">
+		{% for c in conts %}
+		<article id="{{ forloop.counter }}" class="{% if c.apv > c.rep %}green{% else %}red{% endif %}">
+			<span class="image">
+				<img src="/static/img/pic01.jpg" alt="" />
+			</span>
+			<header class="major">
+				<h3><a href="#" style="text-transform: uppercase;" class="link">{{ c.tema }}</a></h3>
+				<div class="content">
+				<p>{{ c.cont|truncatechars:300 }}</p>
+				</div>
+			</header>
+			<footer>
+
+			</footer>
+		</article>
+		<div class="modal fade bd-example-modal-lg " tabindex="-1" id="mod-{{ forloop.counter }}" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-lg">
+		    <div id="modal-content-{{ forloop.counter }}" class="{% if c.apv > c.rep %}green-2{% else %}red-2{% endif %} modal-content">
+		     	<h2>{{ c.tema }}</h2>
+		     	<p>{{ c.cont }}</p>
+		     	<div class="btn-group" role="group" aria-label="Basic example">
+				      		<input type="hidden" name="cont_id" value="{{ forloop.counter }}">
+		  					<button type="button" class="special btnApv" value="{{ forloop.counter }}" data-toggle="tooltip" data-placement="bottom" title="Aprovar"><i class="fa fa-check" aria-hidden="true"></i></button>
+		  					<button type="button" class="special btnRep" value="{{ forloop.counter }}" data-toggle="tooltip" data-placement="bottom" title="Reprovar"><i class="fa fa-times" aria-hidden="true"></i></button>
+				</div>
+				<div class="row modal-images">
+					<div>
+					{% for p in temas_pesq %}
+						{% if p.tema == c.tema %}
+							{% for item in p.pesq %}
+								<div class="related">
+									<header class="major">
+										<h2>{{ item.nome }}</h2>
+									</header>
+								</div>
+							{% endfor %}
+						{% endif %}
+					{% endfor %}
+					</div>
+				</div>
+		    </div>
+		  </div>
+		</div>
+		{% endfor %}
+
+			<!--{% for c in conts %}
+			<div class="card">
+			  <div class="card-header {% if c.apv > c.rep %}green{% else %}red{% endif %}">
+			    {{ c.tema }}
+			  </div>
+			  <div class="card-block">
+			    <blockquote class="card-blockquote">
+				    <p>{{ c.cont }}</p>
+				    <footer>
+				      	<div class="btn-group" role="group" aria-label="Basic example">
+				      		<input type="hidden" name="cont_id" value="{{ forloop.counter }}">
+		  					<button type="button" class="btn btn-secondary btnApv" value="{{ forloop.counter }}">Aprovar</button>
+		  					<button type="button" class="btn btn-secondary btnRep" value="{{ forloop.counter }}">Reprovar</button>
+						</div>
+					</footer>
+			    </blockquote>
+			  </div>
+			</div>
+			{% endfor %}-->
+	</div> 
