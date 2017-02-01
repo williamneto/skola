@@ -16,9 +16,10 @@
     	{% block js %}
     	{% endblock %}
 
-        <title>Skola {% block title %}{% endblock %}</title>
+        <title>Skola {% block title %}{% endblock %} - {{ request.session.USR }}</title>
     </head> 
     <body>
+	
     <div id="wrapper"> 
     <header id="header" class="alt">
                         <a href="/" class="logo"><strong>Skola</strong> <span>levar a todos</span></a>
@@ -41,6 +42,7 @@
                         </div>
                     </footer>-->
     </div>  
-
+	
+	<input type="hidden" id="usr_field" value="{{ request.session.USR }}">
     </body>
 </html>

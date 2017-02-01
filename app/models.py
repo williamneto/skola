@@ -13,3 +13,10 @@ class Debate(models.Model):
 	sala = models.ForeignKey(Sala)
 	tops = models.CharField(max_length=1000)
 	conts = models.TextField(max_length=10000000)
+
+class Usuario(models.Model):
+	nome = models.CharField(max_length=300)
+	salas = models.CharField(
+		max_length=400,
+		blank=True
+	)

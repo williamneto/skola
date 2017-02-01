@@ -6,7 +6,7 @@ from django.views.generic import TemplateView
 from django.shortcuts import redirect, render
 from django.http import JsonResponse
 
-from models import Sala, Debate
+from models import Sala, Debate, Usuario
 
 from google import google, images
 
@@ -18,6 +18,22 @@ class IndexView(TemplateView):
 		if self.request.POST.get('dono'):
 			sala = Sala(dono=self.request.POST['dono'])
 			sala.nome = self.request.POST['nome']
+			
+			if not Usuario.obects.all().filter(nome=self.request.POST["dono"]):
+				dono_usr = Usuario(nome=self.request.POST["dono"])
+				dono_salas = []
+				dono_salas.append(sala.id)
+				
+				dono_usr.salas = json.dumps(dono_salas)
+				dono_usr.save()
+			else:
+				dono_usr = Usuario.objects.get(nome=self.request.POST["dono"])
+				
+				dono_salas = json.loads(dono_usr.salas)
+				dono_salas.append(sala.id)
+				
+				dono_usr.salas = json.dumps(dono_salas)
+				dono_usr.save()
 
 			videos = self.request.POST['video'].split(",")
 			embeds = []
@@ -34,6 +50,10 @@ class IndexView(TemplateView):
 			sala.temas = json.dumps(temas)
 
 			membros = self.request.POST['membros'].split(",")
+			for membro in membros:
+				if not Usuario.obects.all().filter(nome=membro):
+					membro_usr = Usuario(nome=membro)
+					membro_usr.save()			
 			sala.membros = json.dumps(membros)
 
 			sala.save()
@@ -49,7 +69,9 @@ class IndexView(TemplateView):
 				membros = json.loads(sala.membros)
 
 				for m in membros:
-					if m == membro:
+					if m == membro or membro == sala.dono:
+						self.request.session["SALA"] = sala.id
+						self.request.session["USR"] = membro
 						return redirect("/" + str(sala.id))
 					else:
 						ctx['error_a'] = "Você não foi convidado para esta sala"
@@ -76,12 +98,27 @@ class SalaView(TemplateView):
 		ctx = self.get_context_data()
 
 		if self.request.GET.get('avl'):
+			send = True
 			avl = self.request.GET['avl']
 			d = Debate.objects.all().filter(sala=ctx['sala'])[0]
 
 			conts = json.loads(d.conts)
 			i = int(self.request.GET['cont'])
 			c = conts['conts'][i]
+			
+			if c.get('usrs_aval'):
+				usrs_aval = json.loads(c['usrs_aval'])
+				
+				for usr in usrs_aval:
+					if usr == self.request.session['USR']:
+						send = True
+					
+				usrs_aval.append(self.request.session['USR'])
+				
+				c['usrs_aval'] = json.dumps(usrs_aval)
+			else:
+				usrs_aval = [self.request.session['USR']]
+				c['usrs_aval'] = json.dumps(usrs_aval)
 
 			if avl == "apv":
 				if not c.get('apv'):
@@ -99,15 +136,18 @@ class SalaView(TemplateView):
 				ctx['color'] = "green"
 			else:
 				ctx['color'] = "red"
+			
+			if send == True:
+				conts['conts'][i] = c
+				o = Debate.objects.all().filter(sala=ctx['sala'])[0]
+				o.conts = json.dumps(conts)
+				o.save()
+				ctx['status'] = 1
+				ctx['conts'] = conts['conts']
 
-			conts['conts'][i] = c
-			o = Debate.objects.all().filter(sala=ctx['sala'])[0]
-			o.conts = json.dumps(conts)
-			o.save()
-			ctx['status'] = 1
-			ctx['conts'] = conts['conts']
-
-			return JsonResponse({'color': ctx['color']})
+				return JsonResponse({'color': ctx['color']})
+			else:
+				return JsonResponse({'fail': 'Ja avaliou'})
 
 		if self.request.GET.get('update-conts'):
 			tema = self.request.GET['update-conts']

@@ -4,7 +4,8 @@ $(document).ready(function(){
 		var tema = $("#id_tema").val()
 		var cont = {
 			"tema": tema,
-			"cont": $("#id_cont").val()
+			"cont": $("#id_cont").val(),
+			"usr": $("#usr_field").val()
 		}
 		
 		data = {'data': JSON.stringify(cont)}
@@ -44,8 +45,13 @@ $(document).ready(function(){
         	type: "GET",
         	data: data,
         	success: function(data){
-        		i = i + 1
-        	  $("#modal-content-"+i).attr('class', data['color'] + ' modal-content')
+				if ( data['fail'] ){
+					alert(data['fail'])
+				} else {
+					i = i + 1
+					$("#modal-content-"+i).attr('class', data['color'] + '-2 modal-content')
+					$("#"+i).attr('class', data['color'])
+				}
         	}
      	});
 	});
@@ -60,8 +66,13 @@ $(document).ready(function(){
         	type: "GET",
         	data: data,
         	success: function(data){
-        		i = i +1
-        		$("#modal-content-"+i).attr('class', data['color'] + ' modal-content')
+				if ( data['fail'] ){
+					alert(data['fail'])
+				} else {
+					i = i +1
+					$("#modal-content-"+i).attr('class', data['color'] + '-2 modal-content')
+					$("#"+i).attr('class', data['color'])
+				}
         	}
      	});
 	});
