@@ -31,16 +31,43 @@
 			<header class="major">
 				<h2>Videos provocadores</h2>
 			</header>
+			
+
 			<div class="content">
 				<p style="font-family: inherit; font-style: inherit; font-weight: 600; font-size: 0.7em; line-height: inherit; font-size-adjust: inherit; font-stretch: inherit; font-feature-settings: inherit; font-language-override: inherit; font-kerning: inherit; font-synthesis: inherit; font-variant: inherit; letter-spacing: 0.25em; text-transform: uppercase;">
 					Estes videos foram selecionados para fomentar o debate e estão relacionados com a temática. Assista atentamente e sinta-se livre para escrever suas opiniões sobre eles.
 				</p>
 			</div>
-			{% for e in embeds %}
-				<div class="video" stle="display: {% if forloop.counter > 1 %}none{% else %}block{% endif %}"">
-				<iframe src="{{ e }}" width="1000" height="600" frameborder="0" allowfullscreen></iframe>
+			<div class="flux">
+				{% for e in embeds %}
+				<div class="flux-item">
+					<div class="card-header">
+						
+					</div>
+					<div class="card-block">
+						<div class="video" stle="display: {% if forloop.counter > 1 %}none{% else %}block{% endif %}"">
+				<iframe src="{{ e }}" frameborder="0" allowfullscreen></iframe></div>
+					</div>
+				</div>
+				{% endfor %}
 			</div>
-			{% endfor %}
+			
+			<header class="major">
+				<h2>Pesquisas relacionadas</h2>
+			</header>
+			<div class="card-columns">
+				{% for p in temas_pesq %}
+				<div class="card">
+					<div class="card-header">
+						<a href="{{ p.link }}">{{ p.nome }}</a>
+					</div>
+					<div class="card-block">
+						{{ p.desc }}
+					</div>
+				</div>					
+				{% endfor %}
+			</div>
+			
 		</div>
 
 	</div>

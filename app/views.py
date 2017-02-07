@@ -87,10 +87,28 @@ class SalaView(TemplateView):
 		ctx = super(SalaView, self).get_context_data(*args, **kwargs)
 
 		ctx['sala'] = Sala.objects.all().filter(id=self.kwargs.get('pk'))[0]
+		
 		if  Debate.objects.all().filter(sala=ctx['sala']):
 			ctx['debates'] = Debate.objects.all().filter(sala=ctx['sala'])[0]
 			ctx['conts'] = json.loads(ctx['debates'].conts)['conts']
+			
 		ctx['temas'] = json.loads(ctx['sala'].temas)
+		temas_pesq = []
+		for tema in ctx['temas']:
+			pesq = google.search(tema, 1)
+			i = 0
+			for p in pesq:
+				i = i + 1
+				if i < 4:
+					obj = {
+						"nome": p.name,
+						"link": p.link,
+						"desc": p.description
+					}
+					temas_pesq.append(obj)
+		ctx['temas_pesq'] = temas_pesq
+			
+		
 		ctx['embeds'] = json.loads(ctx['sala'].video)
 		return ctx
 
