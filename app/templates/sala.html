@@ -38,18 +38,15 @@
 					Estes videos foram selecionados para fomentar o debate e estão relacionados com a temática. Assista atentamente e sinta-se livre para escrever suas opiniões sobre eles.
 				</p>
 			</div>
-			<div class="flux">
-				{% for e in embeds %}
-				<div class="flux-item">
-					<div class="card-header">
-						
-					</div>
-					<div class="card-block">
-						<div class="video" stle="display: {% if forloop.counter > 1 %}none{% else %}block{% endif %}"">
-				<iframe src="{{ e }}" frameborder="0" allowfullscreen></iframe></div>
-					</div>
+			<div class="flux row">
+				<div class="vid-play col-sm-8">					
+					<iframe src="{{ embeds.0 }}" frameborder="0" allowfullscreen></iframe>
 				</div>
-				{% endfor %}
+				<div class="vid-left col-sm-4">
+					<input type="text" id="vid-search" placeholder="Pesquisar...">
+				
+				</div>
+				
 			</div>
 			
 			<header class="major">

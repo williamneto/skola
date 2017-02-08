@@ -135,7 +135,17 @@
 	}
 	
 	.flux {
-	
+		display: inline-block;
+		width: 100%;
+	}
+	.vid-play {
+		height: 350px;
+	}
+	.vid-play iframe {
+		width: 100%;
+		height: 100%;
+	}
+	.vid-left {
 	}
 	.flux-item {
 		display: inline-flex;
