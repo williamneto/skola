@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from models import Sala, Debate, Usuario
 
 from google import google, images
+from google.modules.youtube_search import search
 
 class IndexView(TemplateView):
 	template_name = "index.html"
@@ -94,6 +95,7 @@ class SalaView(TemplateView):
 			
 		ctx['temas'] = json.loads(ctx['sala'].temas)
 		temas_pesq = []
+
 		for tema in ctx['temas']:
 			pesq = google.search(tema, 1)
 			i = 0
@@ -106,6 +108,22 @@ class SalaView(TemplateView):
 						"desc": p.description
 					}
 					temas_pesq.append(obj)
+
+			rel_vids =[]
+
+			yt_search = search(tema)
+			i = 0
+			for r in yt_search:
+				i = i + 1
+				if i < 4:
+					obj = {
+						"nome": r.name,
+						"link": r.link,
+						"thumb": r.thumb
+					}
+					rel_vids.append(obj)
+
+		ctx['rel_vids'] = rel_vids
 		ctx['temas_pesq'] = temas_pesq
 			
 		

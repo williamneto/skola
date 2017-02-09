@@ -51,6 +51,12 @@
 				</div>
 				<div class="vid-left col-sm-4">
 					<input type="text" id="vid-search" placeholder="Pesquisar...">
+					{% for vid in rel_vids %}
+					<div class="row">
+						<img src="{{ vid.thumb }}">
+						{{ vid.nome }}
+					</div>
+					{% endfor %}
 				
 				</div>
 				
