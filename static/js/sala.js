@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	
+
 	$("#submit").click(function(){
 		var tema = $("#id_tema").val()
 		var cont = {
@@ -77,6 +77,28 @@ $(document).ready(function(){
      	});
 	});
 
+	var vid_cur = $("#vid-cur").val()
+
+	$("#vid-"+vid_cur).show()
+
+	$("#btnVidNext").click(function(){
+		var next_vid = parseInt(vid_cur) + 1
+
+		$("#vid-"+vid_cur).hide()
+		$("#vid-"+next_vid).show()
+
+		$("#vid-cur").val(next_vid)
+		vid_cur = next_vid
+	})
+	$("#btnVidPrev").click(function(){
+		var prev_vid = parseInt(vid_cur) - 1
+
+		$("#vid-"+vid_cur).hide()
+		$("#vid-"+prev_vid).show()
+
+		$("#vid-cur").val(prev_vid)
+		vid_cur = prev_vid
+	})
 
 	$("#btnCont").click(function(){
 		if ($("#vid").css('display') == "none") {

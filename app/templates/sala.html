@@ -38,9 +38,16 @@
 					Estes videos foram selecionados para fomentar o debate e estão relacionados com a temática. Assista atentamente e sinta-se livre para escrever suas opiniões sobre eles.
 				</p>
 			</div>
-			<div class="flux row">
-				<div class="vid-play col-sm-8">					
-					<iframe src="{{ embeds.0 }}" frameborder="0" allowfullscreen></iframe>
+			<div class="flux">
+				<div class="vid-play col-sm-8">
+					<input type="hidden" id="vid-cur" value="1">
+					{% for e in embeds %}
+					<div style="display: none;" class="vid-play" id="vid-{{ forloop.counter }}">					
+						<iframe src="{{ e }}" frameborder="0" allowfullscreen></iframe>
+					</div>
+					{% endfor %}
+					<a href="#vid" class="button next scrolly" id="btnVidPrev">Anterior</a>
+					<a href="#vid" class="button next scrolly" id="btnVidNext">Próximo</a>
 				</div>
 				<div class="vid-left col-sm-4">
 					<input type="text" id="vid-search" placeholder="Pesquisar...">

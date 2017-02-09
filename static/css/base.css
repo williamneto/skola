@@ -137,9 +137,12 @@
 	.flux {
 		display: inline-block;
 		width: 100%;
+		margin-bottom: 150px;
+        text-align: center;
 	}
 	.vid-play {
-		height: 350px;
+		height: 390px;
+		margin-bottom: 20px;
 	}
 	.vid-play iframe {
 		width: 100%;

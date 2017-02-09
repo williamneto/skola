@@ -19,7 +19,7 @@ class IndexView(TemplateView):
 			sala = Sala(dono=self.request.POST['dono'])
 			sala.nome = self.request.POST['nome']
 			
-			if not Usuario.obects.all().filter(nome=self.request.POST["dono"]):
+			if not Usuario.objects.all().filter(nome=self.request.POST["dono"]):
 				dono_usr = Usuario(nome=self.request.POST["dono"])
 				dono_salas = []
 				dono_salas.append(sala.id)
@@ -51,7 +51,7 @@ class IndexView(TemplateView):
 
 			membros = self.request.POST['membros'].split(",")
 			for membro in membros:
-				if not Usuario.obects.all().filter(nome=membro):
+				if not Usuario.objects.all().filter(nome=membro):
 					membro_usr = Usuario(nome=membro)
 					membro_usr.save()			
 			sala.membros = json.dumps(membros)
