@@ -149,6 +149,19 @@
 		height: 100%;
 	}
 	.vid-left {
+		overflow-y: scroll;
+		height: 580px;
+		padding: 15px;
+	}
+	.vid-left div {
+		padding: 20px;
+	}
+	.vid-left p {
+		text-align: center;
+		font-size: 14pt;
+	}
+	.vid-left img {
+		width: 90%;
 	}
 	.flux-item {
 		display: inline-flex;

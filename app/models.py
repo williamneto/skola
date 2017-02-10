@@ -9,6 +9,18 @@ class Sala(models.Model):
 	video = models.CharField(max_length=1500)
 	membros = models.CharField(max_length=1500)
 
+	def to_json(self):
+		json = {
+			"id": self.id,
+			"dono": self.dono,
+			"nome": self.nome,
+			"temas": self.temas,
+			"video": self.video,
+			"membros": self.membros
+		}
+
+		return json
+
 class Debate(models.Model):
 	sala = models.ForeignKey(Sala)
 	tops = models.CharField(max_length=1000)

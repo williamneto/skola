@@ -1,5 +1,14 @@
 $(document).ready(function(){
-
+	data = {"cmd": "load_conts", "update-conts": "Todos" }
+		$.ajax({
+	       	url: ".",
+	       	type: "GET",
+	       	data: data,
+	       	success: function(data){
+	       	  $("#conts").html(data)
+	       	}
+	   	});
+	
 	$("#submit").click(function(){
 		var tema = $("#id_tema").val()
 		var cont = {
@@ -8,7 +17,7 @@ $(document).ready(function(){
 			"usr": $("#usr_field").val()
 		}
 		
-		data = {'data': JSON.stringify(cont)}
+		data = {'cmd': 'send_cont', 'data': JSON.stringify(cont)}
 		$.ajax({
         	url: ".",
         	type: "GET",
@@ -26,7 +35,7 @@ $(document).ready(function(){
 	});
 
 	$('#conts').on('click', '.tems-c', function() {
-		data = {"update-conts": $(this).text() }
+		data = {"cmd": "load_conts", "update-conts": $(this).text() }
 		$.ajax({
         	url: ".",
         	type: "GET",
@@ -39,7 +48,7 @@ $(document).ready(function(){
 
 	$('#conts').on('click', '.btnApv', function() {
 		var i = parseInt($(this).val()) - 1
-		data = {"avl": "apv", "cont":  i}
+		data = {"cmd": "avl", "avl": "apv", "cont":  i}
 		$.ajax({
         	url: ".",
         	type: "GET",
@@ -60,7 +69,7 @@ $(document).ready(function(){
 	})
 	$('#conts').on('click', '.btnRep', function() {
 		var i = parseInt($(this).val()) - 1
-		data = {"avl": "rep", "cont":  i}
+		data = {"cmd": "avl", "avl": "rep", "cont":  i}
 		$.ajax({
         	url: ".",
         	type: "GET",
@@ -120,7 +129,7 @@ $(document).ready(function(){
 			$("#deb").hide()
 			$("#vid").hide()
 
-			data = {"update-conts": "Todos" }
+			data = {"cmd": "load_conts", "update-conts": "Todos" }
 			$.ajax({
 	        	url: ".",
 	        	type: "GET",

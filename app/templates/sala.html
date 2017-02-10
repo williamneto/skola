@@ -52,9 +52,10 @@
 				<div class="vid-left col-sm-4">
 					<input type="text" id="vid-search" placeholder="Pesquisar...">
 					{% for vid in rel_vids %}
-					<div class="row">
+					<div class="">
 						<img src="{{ vid.thumb }}">
-						{{ vid.nome }}
+						<br>
+						<p>{{ vid.nome }}</p>
 					</div>
 					{% endfor %}
 				
@@ -131,51 +132,7 @@
 					{% endfor %}
 				</ul>
 			</div>
-			<!--<table class="table">
-				<thead>
-
-					
-				</thead>
-				<tbody>
-					{% for t in temas %}
-					<tr>
-						<th>{{ t }}</th>
-						{% for c in conts %}
-
-						{% if c.tema == t %}
-						<th>{{ c.cont }}</th>
-						{% endif %}
-
-						{% endfor %}
-					</tr>
-					{% endfor %}
-
-					
-				</tbody>
-			</table>-->
-			<div class="card-columns">
-					{% for c in conts %}
-					<div class="card">
-					  <div class="card-header">
-					    {{ c.tema }}
-					  </div>
-					  <div class="card-block">
-					    <blockquote class="card-blockquote">
-						    <p>{{ c.cont }}</p>
-						    <footer>
-						      	<div class="btn-group" role="group" aria-label="Basic example">
-						      	<div class="btn-group" role="group" aria-label="Basic example">
-						      		<input type="hidden" name="cont_id" value="{{ forloop.counter }}">
-				  					<button type="button" class="btn btn-secondary btnApv" value="{{ forloop.counter }}">Aprovar ({{ c.apv}})</button>
-				  					<button type="button" class="btn btn-secondary btnRep" value="{{ forloop.counter }}">Reprovar ({{ c.rep }})</button>
-								</div>
-								</div>
-							</footer>
-					    </blockquote>
-					  </div>
-					</div>
-					{% endfor %}
-			</div>
+			<br><br><br>
 		</div>
 	</div>
 </section>
