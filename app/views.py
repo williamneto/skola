@@ -11,6 +11,50 @@ from models import Sala, Debate, Usuario
 from google import google, images
 from google.modules.youtube_search import search
 
+class SalaRelated:
+	def __init__(self):
+		self.sala_id = None
+
+	def get_pesqs(self, temas):
+		temas_pesq = []
+
+		for tema in temas:
+			pesq = google.search(tema, 1)
+			i = 0
+			for p in pesq:
+				if i < 3:
+					if p.name and p.description:
+						obj = {
+							"nome": p.name,
+							"link": p.link,
+							"desc": p.description,
+							"tema": tema
+						}
+						temas_pesq.append(obj)
+						i = i + 1
+
+
+		return temas_pesq
+
+	def get_vids(self, temas):
+		rel_vids = []
+
+		for tema in temas:
+			yt_search = search(tema)
+			i = 0
+			for r in yt_search:
+				i = i + 1
+				if i < 3:
+					obj = {
+						"nome": r.name,
+						"link": r.link,
+						"thumb": r.thumb
+					}
+					rel_vids.append(obj)
+
+		return rel_vids
+
+
 class SalaSession:
 	def __init__(self):
 		self.sala = None
@@ -130,6 +174,7 @@ class SalaView(TemplateView):
 
 	def __init__(self, *args, **kwargs):
 		self.sess = SalaSession()
+		self.related = SalaRelated()
 
 	def get(self, *args, **kwargs):
 		ctx = self.get_context_data()
@@ -143,41 +188,6 @@ class SalaView(TemplateView):
 
 		return super(SalaView, self).get(*args, **kwargs)
 
-	def _get_related_search(self, temas):
-		temas_pesq = []
-
-		for tema in temas:
-			pesq = google.search(tema, 1)
-			i = 0
-			for p in pesq:
-				i = i + 1
-				if i < 4:
-					obj = {
-						"nome": p.name,
-						"link": p.link,
-						"desc": p.description
-					}
-					temas_pesq.append(obj)
-
-		return temas_pesq
-
-	def _get_related_vids(self, temas):
-		rel_vids = []
-
-		for tema in temas:
-			yt_search = search(tema)
-			i = 0
-			for r in yt_search:
-				i = i + 1
-				if i < 3:
-					obj = {
-						"nome": r.name,
-						"link": r.link,
-						"thumb": r.thumb
-					}
-					rel_vids.append(obj)
-
-		return rel_vids
 
 	def get_context_data(self, *args, **kwargs):
 		ctx = super(SalaView, self).get_context_data(*args, **kwargs)
@@ -186,8 +196,8 @@ class SalaView(TemplateView):
 		if not self.request.session.get('sala_session'):
 			self.sess.sala = Sala.objects.all().filter(id=self.kwargs.get('pk'))[0]
 			self.sess.temas = json.loads(self.sess.sala.temas)
-			self.sess.related_vids = self._get_related_vids(self.sess.temas)
-			self.sess.related_pesq = self._get_related_search(self.sess.temas)
+			self.sess.related_vids = self.related.get_vids(self.sess.temas)
+			self.sess.related_pesq = self.related.get_pesqs(self.sess.temas)
 			self.sess.embeds = json.loads(self.sess.sala.video)
 
 			self.sess.store_data(self.request)
@@ -203,6 +213,7 @@ class SalaView(TemplateView):
 			ctx['conts'] = json.loads(ctx['debates'].conts)['conts']
 
 		ctx['rel_vids'] = self.sess.related_vids
+		ctx['rel_pesq'] = self.sess.related_pesq
 
 		return ctx
 

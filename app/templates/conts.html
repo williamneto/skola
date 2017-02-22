@@ -67,17 +67,15 @@
 				<div class="row modal-images">
 					<div>
 						<h2>Relacionado a {{ c.tema }}</h2>
-					{% for p in temas_pesq %}
-						{% if p.tema == c.tema %}
-							{% for item in p.pesq %}
+						{% for p in rel_pesq %}
+							{% if p.tema == c.tema %}
 								<div class="related">
 									<label>
-										<a href="{{ item.link }}" target="_blank">{{ item.nome }}</a>
+										<a href="{{ p.link }}" target="_blank">{{ p.nome }}</a>
 									</label>
 								</div>
-							{% endfor %}
-						{% endif %}
-					{% endfor %}
+							{% endif %}
+						{% endfor %}
 					</div>
 				</div>
 		    </div>

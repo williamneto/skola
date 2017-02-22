@@ -67,10 +67,10 @@
 				<h2>Pesquisas relacionadas</h2>
 			</header>
 			<div class="card-columns">
-				{% for p in temas_pesq %}
+				{% for p in rel_pesq %}
 				<div class="card">
 					<div class="card-header">
-						<a href="{{ p.link }}">{{ p.nome }}</a>
+						<a href="{{ p.link }}" target="_blank">{{ p.nome }}</a>
 					</div>
 					<div class="card-block">
 						{{ p.desc }}
